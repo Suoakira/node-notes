@@ -29,7 +29,7 @@ const addNote = (title, body) => {
 }
 
 const getAll = () => {
-    console.log("getting all notes")
+    return fetchNotes()
 }
 
 const readingNote = (title) => {
@@ -49,9 +49,22 @@ const removeNote = (title) => {
     return bootLean
 }
 
+const logNote = (note) => {
+    debugger
+    if (note) {
+    console.log(
+        "Title:", note.title,
+        "Body", note.body
+    )
+    }  else {
+    console.log(`sorry a note with the wasnt found`)
+    }
+}
+
 module.exports = {
     addNote: addNote,
     getAll: getAll,
     readingNote: readingNote,
-    removeNote: removeNote
+    removeNote: removeNote, 
+    logNote: logNote
 }
