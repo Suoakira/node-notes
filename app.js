@@ -1,6 +1,6 @@
 console.log("starting app")
 // files required from node
-const fileSystem = require("fs")
+
 const _ = require('lodash')
 const yargs = require('yargs')
 // files required locally
@@ -12,23 +12,14 @@ console.log("command", command)
 
 if (command === "add") {
     const note = notes.addNote(argv.title, argv.body)
-    if (note !== undefined) {
-        console.log("note created", note.title) 
-    } else {
-        console.log("not is a duplicate")
-    }
+    notes.logNote(note)
 } else if (command === "list") {
-    notes.getAll()
+    const allNotes = notes.getAll()
+    console.log(`${allNotes.length} note(s)`)
+    allNotes.forEach(note => notes.logNote(note))
 } else if (command === "read") {
     const note = notes.readingNote(argv.title)
-    if (note) {
-        console.log(
-            "Title:", note.title,
-            "Body", note.body
-            )
-    }  else {
-        console.log(`sorry a note with the title ${argv.title} wasnt found`)
-    }
+    notes.logNote(note)
 } else if (command === "remove") {
     const notesRemoved = notes.removeNote(argv.title)
     const message = !notesRemoved ? "Note Removed" : "Note Not Found"
